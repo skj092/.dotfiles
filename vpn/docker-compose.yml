@@ -1,0 +1,12 @@
+version: '3'
+services:
+  openfortivpn:
+    image: signzy/openfortivpn:v1.0.0
+    container_name: vpn
+    volumes:
+      - /home/sonu/.dotfiles/vpn/config:/etc/openfortivpn/config
+    network_mode: "host"
+    restart: always
+    privileged: true
+    devices:
+      - /dev/ppp:/dev/ppp
