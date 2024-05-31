@@ -136,3 +136,7 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+MOJO_PATH=$(modular config mojo.path) \
+  && echo 'export MODULAR_HOME="'$HOME'/.modular"' >> ~/.zshrc \
+  && echo 'export PATH="'$MOJO_PATH'/bin:$PATH"' >> ~/.zshrc \
+  && source ~/.zshrc
