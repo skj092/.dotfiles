@@ -3,12 +3,18 @@
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
+export PATH="~/miniconda3/bin:$PATH"
+export JMETER_HOME="$HOME/signzy/jmeter/apache-jmeter-5.6.3/bin"
+export PATH="$JMETER_HOME:$PATH"
+export PATH="$PATH:/home/sonu/Downloads/software/flutter/bin"
+
+
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+ZSH_THEME="agnoster"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -70,9 +76,19 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git zsh-autosuggestions)
+
+bindkey '^ ' autosuggest-accept
 
 source $ZSH/oh-my-zsh.sh
+
+alias tmux="tmux -u attach || tmux -u new-session"
+alias vim="nvim"
+alias jump='ssh sonujha@164.52.197.173'
+#alias vpn='sudo openfortivpn'
+alias vpn="sudo openfortivpn"
+alias btc="bluetoothctl connect 00:00:AB:CD:3E:AA"
+alias btd="bluetoothctl disconnect 00:00:AB:CD:3E:AA"
 
 # User configuration
 
@@ -101,42 +117,69 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 source ~/.zsh_profile
 
-alias luamake=/home/mpaulson/personal/lua-language-server/3rd/luamake/luamake
+#alias luamake=/home/mpaulson/personal/lua-language-server/3rd/luamake/luamake
 
 # bun completions
-[ -s "/home/mpaulson/.bun/_bun" ] && source "/home/mpaulson/.bun/_bun"
+#[ -s "/home/mpaulson/.bun/_bun" ] && source "/home/mpaulson/.bun/_bun"
 
 # Bun
-export BUN_INSTALL="/home/mpaulson/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
+#export BUN_INSTALL="/home/mpaulson/.bun"
+#export PATH="$BUN_INSTALL/bin:$PATH"
 
 # Bun
-export BUN_INSTALL="/home/mpaulson/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
+#export BUN_INSTALL="/home/mpaulson/.bun"
+#export PATH="$BUN_INSTALL/bin:$PATH"
 
 # pnpm
-export PNPM_HOME="/home/mpaulson/.local/share/pnpm"
-export PATH="$PNPM_HOME:$PATH"
+#export PNPM_HOME="/home/mpaulson/.local/share/pnpm"
+#export PATH="$PNPM_HOME:$PATH"
 # pnpm end
 # Turso
-export PATH="/home/mpaulson/.turso:$PATH"
+#export PATH="/home/mpaulson/.turso:$PATH"
+
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/mpaulson/.local/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('/home/sonu/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/home/mpaulson/.local/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/mpaulson/.local/anaconda3/etc/profile.d/conda.sh"
+    if [ -f "/home/sonu/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/sonu/miniconda3/etc/profile.d/conda.sh"
     else
-        export PATH="/home/mpaulson/.local/anaconda3/bin:$PATH"
+        export PATH="/home/sonu/miniconda3/bin:$PATH"
     fi
 fi
 unset __conda_setup
 # <<< conda initialize <<<
 
-MOJO_PATH=$(modular config mojo.path) \
-  && echo 'export MODULAR_HOME="'$HOME'/.modular"' >> ~/.zshrc \
-  && echo 'export PATH="'$MOJO_PATH'/bin:$PATH"' >> ~/.zshrc \
-  && source ~/.zshrc
+
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# control + f to search
+tmux-sessionizer-widget() {
+    ~/.dotfiles/bin/.local/scripts/tmux-sessionizer
+}
+zle -N tmux-sessionizer-widget
+bindkey '^f' tmux-sessionizer-widget
+
+
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/sonu/signzy/QuickAgent/google-cloud-sdk/path.zsh.inc' ]; then . '/home/sonu/signzy/QuickAgent/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/sonu/signzy/QuickAgent/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/sonu/signzy/QuickAgent/google-cloud-sdk/completion.zsh.inc'; fi
+export MODULAR_HOME="/home/sonu/.modular"
+export PATH="/home/sonu/.modular/pkg/packages.modular.com_mojo/bin:$PATH"
+
+
+
+# Custom paths
+export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
+export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
+export HISTFILE="$XDG_STATE_HOME"/bash/history
+export PATH="/home/sonu/.newsboat/:$PATH"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
